@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql_m6
+    environment:
+      MYSQL_ROOT_PASSWORD: neus1234
+      MYSQL_DATABASE: m6
+      MYSQL_USER: neus
+      MYSQL_PASSWORD: neus1234
+    ports:
+      - "3307:3307"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-container
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3307
+      MYSQL_ROOT_PASSWORD: system
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
